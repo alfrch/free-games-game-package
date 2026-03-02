@@ -1,0 +1,42 @@
+{
+  "originHash" : "7c5c598525412a045787486d860eecc3b34d4d20c7f761cfaa900f8090b8d779",
+  "pins" : [
+    {
+      "identity" : "alamofire",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Alamofire/Alamofire.git",
+      "state" : {
+        "revision" : "3f99050e75bbc6fe71fc323adabb039756680016",
+        "version" : "5.11.1"
+      }
+    },
+    {
+      "identity" : "free-games-core-package",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/alfrch/free-games-core-package.git",
+      "state" : {
+        "revision" : "e005511bb2fa35d18ababb38f466a15bd53b285d",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "realm-core",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-core.git",
+      "state" : {
+        "revision" : "cccb3ca9e26ec452a29f2f0d4050d1e38b8a3d43",
+        "version" : "14.14.0"
+      }
+    },
+    {
+      "identity" : "realm-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/realm/realm-swift.git",
+      "state" : {
+        "revision" : "1c105d34f25af7851c5a3ff146be006de247a6b4",
+        "version" : "10.54.6"
+      }
+    }
+  ],
+  "version" : 3
+}
