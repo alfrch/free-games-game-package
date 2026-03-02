@@ -10,7 +10,7 @@ import Core
 
 public struct GameTransformer: Mapper {
   
-  public typealias Request = Any
+  public typealias Request = String
   public typealias Response = GameResponse
   public typealias Entity = GameModuleEntity
   public typealias Domain = GameModel
