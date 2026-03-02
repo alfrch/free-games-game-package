@@ -12,7 +12,7 @@ import RealmSwift
 
 public struct GetFavoriteGamesLocalDataSource: LocalDataSource {
   
-  public typealias Request = String
+  public typealias Request = Any
   public typealias Response = GameModuleEntity
   
   private let realm: Realm?
@@ -21,7 +21,7 @@ public struct GetFavoriteGamesLocalDataSource: LocalDataSource {
     self.realm = realm
   }
   
-  public func list(request: String?) -> AnyPublisher<[GameModuleEntity], any Error> {
+  public func list(request: Any?) -> AnyPublisher<[GameModuleEntity], any Error> {
     return Future<[GameModuleEntity], Error> { completion in
       if let realm = self.realm {
         let gameEntities = {
