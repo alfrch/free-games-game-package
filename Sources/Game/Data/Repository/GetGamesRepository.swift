@@ -19,7 +19,7 @@ Transformer.Response == [GameResponse],
 Transformer.Entity == [GameModuleEntity],
 Transformer.Domain == [GameModel] {
   
-  public typealias Request = Any
+  public typealias Request = String
   public typealias Response = [GameModel]
   
   private let localDataSource: GameLocalDataSource
@@ -36,7 +36,7 @@ Transformer.Domain == [GameModel] {
     self.mapper = mapper
   }
   
-  public func execute(request: Any?) -> AnyPublisher<[GameModel], Error> {
+  public func execute(request: String?) -> AnyPublisher<[GameModel], Error> {
     return self.localDataSource.list(request: nil)
       .flatMap { result -> AnyPublisher<[GameModel], Error> in
         if result.isEmpty {

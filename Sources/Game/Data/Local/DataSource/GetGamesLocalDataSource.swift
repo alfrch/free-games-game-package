@@ -12,7 +12,7 @@ import RealmSwift
 
 public struct GetGamesLocalDataSource: LocalDataSource {
   
-  public typealias Request = Any
+  public typealias Request = String
   public typealias Response = GameModuleEntity
   
   private let realm: Realm

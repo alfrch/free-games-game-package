@@ -8,14 +8,14 @@
 import Core
 
 public struct GamesTransformer: Mapper {
-  public typealias Request = Any
+  public typealias Request = String
   public typealias Response = [GameResponse]
   public typealias Entity = [GameModuleEntity]
   public typealias Domain = [GameModel]
   
   public init() {}
   
-  public func transformResponseToEntity(request: Any?, response: [GameResponse]) -> [GameModuleEntity] {
+  public func transformResponseToEntity(request: String?, response: [GameResponse]) -> [GameModuleEntity] {
     return response.map { result in
       let gameEntity = GameModuleEntity()
       gameEntity.id = "\(result.id ?? 0)"
