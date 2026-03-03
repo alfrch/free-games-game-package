@@ -13,14 +13,14 @@ public struct GetFavoriteGamesRepository<
   Transformer: Mapper
 >: Repository
 where
-GamesLocalDataSource.Request == Any,
+GamesLocalDataSource.Request == String,
 GamesLocalDataSource.Response == GameModuleEntity,
-Transformer.Request == Any,
+Transformer.Request == String,
 Transformer.Response == [GameResponse],
 Transformer.Entity == [GameModuleEntity],
 Transformer.Domain == [GameModel] {
   
-  public typealias Request = Any
+  public typealias Request = String
   public typealias Response = [GameModel]
   
   private let localDatasource: GamesLocalDataSource
@@ -34,7 +34,7 @@ Transformer.Domain == [GameModel] {
     self.mapper = mapper
   }
   
-  public func execute(request: Any?) -> AnyPublisher<[GameModel], any Error> {
+  public func execute(request: String?) -> AnyPublisher<[GameModel], any Error> {
     return self.localDatasource.list(request: request)
       .map { self.mapper.transformEntityToDomain(entity: $0) }
       .eraseToAnyPublisher()
