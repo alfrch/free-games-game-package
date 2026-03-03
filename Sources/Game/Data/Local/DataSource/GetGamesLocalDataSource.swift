@@ -47,7 +47,20 @@ public struct GetGamesLocalDataSource: LocalDataSource {
   }
   
   public func get(id: String) -> AnyPublisher<GameModuleEntity, any Error> {
-    fatalError()
+    Future<GameModuleEntity, Error> { completion in
+      let games: Results<GameModuleEntity> = {
+        realm.objects(GameModuleEntity.self)
+          .filter("id = '\(id)'")
+      }()
+      
+      guard let game = games.first else {
+        completion(.failure(DatabaseError.requestFailed))
+        return
+      }
+      
+      completion(.success(game))
+    }
+    .eraseToAnyPublisher()
   }
   
   public func update(id: Int, entity: GameModuleEntity) -> AnyPublisher<Bool, any Error> {
