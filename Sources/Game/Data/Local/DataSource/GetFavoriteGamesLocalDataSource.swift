@@ -12,7 +12,7 @@ import RealmSwift
 
 public struct GetFavoriteGamesLocalDataSource: LocalDataSource {
   
-  public typealias Request = Any
+  public typealias Request = String
   public typealias Response = GameModuleEntity
   
   private let realm: Realm?
@@ -21,7 +21,7 @@ public struct GetFavoriteGamesLocalDataSource: LocalDataSource {
     self.realm = realm
   }
   
-  public func list(request: Any?) -> AnyPublisher<[GameModuleEntity], any Error> {
+  public func list(request: String?) -> AnyPublisher<[GameModuleEntity], any Error> {
     return Future<[GameModuleEntity], Error> { completion in
       if let realm = self.realm {
         let gameEntities = {
@@ -42,7 +42,29 @@ public struct GetFavoriteGamesLocalDataSource: LocalDataSource {
   }
   
   public func get(id: String) -> AnyPublisher<GameModuleEntity, any Error> {
-    fatalError()
+    Future { completion in
+      guard let realm = self.realm else {
+        completion(.failure(DatabaseError.invalidInstance))
+        return
+      }
+      
+      guard let gameEntity = realm.objects(GameModuleEntity.self)
+        .filter("id == %@", id)
+        .first else {
+        completion(.failure(DatabaseError.invalidInstance))
+        return
+      }
+      
+      do {
+        try realm.write {
+          gameEntity.favorite.toggle()
+        }
+        completion(.success(gameEntity))
+      } catch {
+        completion(.failure(DatabaseError.requestFailed))
+      }
+    }
+    .eraseToAnyPublisher()
   }
   
   public func update(id: Int, entity: GameModuleEntity) -> AnyPublisher<Bool, any Error> {
