@@ -67,13 +67,13 @@ SearchUseCase.Response == [Response] {
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { [weak self] completion in
         guard let self else { return }
+        self.isLoading = false
+        
         switch completion {
         case .failure(let error):
           self.errorMesasage = error.localizedDescription
           self.isError = true
-          self.isLoading = false
-        case .finished:
-          self.isLoading = false
+        case .finished: break
         }
       }, receiveValue: { [weak self] list in
         guard let self else { return }

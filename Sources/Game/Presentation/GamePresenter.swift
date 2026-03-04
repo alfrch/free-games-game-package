@@ -34,12 +34,13 @@ FavoriteUseCase.Response == GameModel {
   
   public func getGame(request: GameUseCase.Request) {
     isLoading = true
-    defer { isLoading = false }
     
     gameUseCase.execute(request: request)
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { [weak self] completion in
         guard let self else { return }
+        self.isLoading = false
+        
         switch completion {
         case .finished: break
         case .failure(let error):
@@ -54,15 +55,15 @@ FavoriteUseCase.Response == GameModel {
   
   public func updateFavoriteGame(request: FavoriteUseCase.Request) {
     isLoading = true
-    defer { isLoading = false }
     
     favoriteUseCase.execute(request: request)
       .receive(on: RunLoop.main)
       .sink(receiveCompletion: { [weak self] completion in
         guard let self else { return }
+        self.isLoading = false
+        
         switch completion {
-        case .finished:
-          self.isLoading = false
+        case .finished: break
         case .failure(let error):
           self.errorMessage = error.localizedDescription
         }
